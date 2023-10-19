@@ -19,7 +19,7 @@ const requestWeather = async function(cityName, apiKey) {
     //.then((data) => console.log(data))
     //console.log(response);
     try {
-        //const request = await fetch(`http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&aqi=no`)
+        //const request = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&aqi=no`)
         const request = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${cityName}&days=3&aqi=no&alerts=no`)
         const response = await request.json();
         console.log(response)
