@@ -14,7 +14,7 @@ const humidityIndexEl = document.querySelector('.humidity_index');
 const customDividerEl = document.querySelector('.custom-divider');
 
 const requestWeather = async function(cityName, apiKey) {
-    //const response = fetch(`http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&aqi=no`)
+    //const response = fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&aqi=no`)
     //.then((response) => response.json())
     //.then((data) => console.log(data))
     //console.log(response);
