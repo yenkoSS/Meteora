@@ -19,8 +19,10 @@ const requestWeather = async function(cityName, apiKey) {
     //.then((data) => console.log(data))
     //console.log(response);
     try {
-        const request = await fetch(`http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&aqi=no`)
+        //const request = await fetch(`http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&aqi=no`)
+        const request = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${cityName}&days=3&aqi=no&alerts=no`)
         const response = await request.json();
+        console.log(response)
         const countryTitle = response.location.country;
         const cityTitle = response.location.name;
         const countyTitle = response.location.region;
@@ -32,8 +34,14 @@ const requestWeather = async function(cityName, apiKey) {
         const windSpeedData = response.current.wind_kph;
         const uvIndex = response.current.uv;
         const humidityIndex = response.current.humidity;
+        const forecastDayOneData = response.forecast.forecastday[0]
+        const forecastDayTwoData = response.forecast.forecastday[1]
+        const forecastDayThreeData = response.forecast.forecastday[2]
+        const forecastData = [forecastDayOneData, forecastDayTwoData, forecastDayThreeData]
+        console.log(forecastData)
 
-        const responseData = [countryTitle, cityTitle, countyTitle, conditionIcon, conditionText, temperature, feelingData, windDirData, windSpeedData, uvIndex, humidityIndex];
+
+        const responseData = [countryTitle, cityTitle, countyTitle, conditionIcon, conditionText, temperature, feelingData, windDirData, windSpeedData, uvIndex, humidityIndex, forecastData];
         displayDetails(...responseData);
     } catch(err) {
         alert(`ERROR: ${err}`)
@@ -46,7 +54,10 @@ const formatTemperature = function(temperature) {
     return new Intl.NumberFormat('en-US', {'style': 'unit', 'unit':'celsius'}).format(temperature);
 }
 
-const displayDetails = function(countryTitle, cityTitle, countyTitle, conditionIcon, conditionText, temperature, feelingData, windDirData, windSpeedData, uvIndex, humidityIndex) {
+const formatDate = function(date) {
+    return new Intl.DateTimeFormat('en-US').format(date);
+}
+const displayData = function(countryTitle, cityTitle, countyTitle, conditionIcon, conditionText, temperature, feelingData, windDirData, windSpeedData, uvIndex, humidityIndex, forecastData) {
     
     customDividerEl.style.display = 'block';
     countryTitleEl.innerHTML = countryTitle;
@@ -59,12 +70,53 @@ const displayDetails = function(countryTitle, cityTitle, countyTitle, conditionI
     windSpeedDataEl.innerHTML = `Wind speed: ${windSpeedData} km/h`;
     uvIndexEl.innerhtml = `UV Index: ${uvIndex}`;
     humidityIndexEl.innerHTML = `Humidity: ${humidityIndex}`;
+    const forecastDataBoxEl = document.querySelector('.forecast-data-box');
+
+    
+        
+    console.log(forecastDataBoxEl);
+    
+    if (forecastDataBoxEl.length === 0) {
+        forecastData.forEach((el) => {
+            const html = `<div class="daily-data-box">
+                                <p class="feature-text">${el.date}</p>
+                                <div class="custom-divider"></div>
+                                <div class="daily-condition-box">
+                                    <img src="${`https:` + el.day.condition.icon}" alt="" class="daily-condition-icon">
+                                    <p class="condition-text">${el.day.condition.text}</p>
+                                </div>
+                                <div class="daily-details-box">
+                                    <p class="feature-text">Max: ${el.day.maxtemp_c}</p>
+                                    <p class="feature-text">Min: ${el.day.mintemp_c}</p>
+                                </div>
+                            </div>`
+            forecastDataBoxEl.insertAdjacentHTML('beforeend', html)
+        })
+        
+    } else {
+
+        forecastDataBoxEl.innerHTML = '';
+        forecastData.forEach((el) => {
+            const html = `<div class="daily-data-box">
+                                <p class="feature-text">${formatDate(el.date)}</p>
+                                <div class="custom-divider"></div>
+                                <div class="daily-condition-box">
+                                    <img src="${`https:` + el.day.condition.icon}" alt="" class="daily-condition-icon">
+                                    <p class="condition-text">${el.day.condition.text}</p>
+                                </div>
+                                <div class="daily-details-box">
+                                    <p class="feature-text">Max: ${formatTemperature(el.day.maxtemp_c)}</p>
+                                    <p class="feature-text">Min: ${formatTemperature(el.day.mintemp_c)}</p>
+                                </div>
+                            </div>`
+            forecastDataBoxEl.insertAdjacentHTML('beforeend', html)
+        })
+    }
+        
+    
 }
 
 searchBtn.addEventListener('click', function() {
     const inputValue = inputEl.value;
     requestWeather(inputValue, apiKey);
 })
-
-
-
