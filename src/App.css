@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap');
+
+* {
+    padding:0;
+    margin:0;
+}
+
+html {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    width:100%;
+    height:98vh;
+    background-color:white;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app {
+    border-radius: 10px;
+    width:800px;
+    background-color: #242830;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.nav-bar {
+    padding:20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.247);
+    display:flex;
+    justify-content: space-between;
+}
+
+.text-logo {
+    font-size:32px;
+    font-weight: 600;
+    color:rgb(49, 252, 116);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.search {
+    width:350px;
+    padding:10px;
+    border-radius: 10px;
+    border:none;
+}
+
+.text-today {
+    font-size:40px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color:white;
+    margin-bottom: 20px;
+}
+
+.text-current-date {
+    font-weight: 300;
+    font-size:28px;
+    color:white;
+    margin-bottom: 10px;
+}
+
+.text-location {
+    letter-spacing: 1px;
+    font-size:20px;
+    color:white;
+}
+
+.box {
+    padding:40px;
+    display:flex;
+    justify-content: space-around;
+}
+
+.text-temperature {
+    font-size:70px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    color:white;
+}
+
+.text-condition {
+    font-size:20px;
+    color:white;
+}
+
+.more-details {
+
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.more-details-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:10px;
+    color:white;
+    border-top:1px solid rgba(255, 255, 255, 0.274);
+    border-bottom:1px solid rgba(255, 255, 255, 0.274);
+}
+
+.btn-details {
+    display:block;
+    width:200px;
+}
+
+.forecast-box {
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left: 20px;
+    padding-right:20px;
+    border:1px solid white;
+    border-radius:5px;
+}
+
+.forecast-box .active {
+    background-color:white;
+    border:none;
+    color:black;
+}
+
+
+.icon {
+    width:80px;
+    height:80px;
+    margin-bottom: 20px;
+}
+
+.weather-icon-big {
+    width:100px;
+    height: 100px;
+}
+
+footer {
+    padding:20px;
+    text-align: center;
+    color:white;
+    border-top:1px solid rgba(255, 255, 255, 0.274);
+}
+
+
+.left-box {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.right-box {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.btn-details {
+    background:none;
+    border:none;
+    width:50px;
+    height:50px;
+    font-size:16px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color:rgb(49, 252, 116);
+}
+
+.text-details {
+    letter-spacing: 2px;
+}
+
+.text-details span {
+    margin-left:60px;
+}
+
+.details-feature-box {
+    display:flex;
+    width:400px;
+    justify-content: space-between;
+}
+
+.main {
+
+}
+
+/* From https://css.glass */
+
+.text-footer {
+    font-size:14px;
+    letter-spacing: 1px;
+    color:rgba(255, 255, 255, 0.247);
+}
