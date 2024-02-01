@@ -48,9 +48,9 @@ const data = [{ id: 1,
 
 export default function App () {
 
-    const [firstDay, setFirstDay] = useState()
-    const [secondDay, setSecondDay] = useState()
-    const [thirdDay, setThirdDay] = useState()
+    const [firstDay, setFirstDay] = useState(data[0])
+    const [secondDay, setSecondDay] = useState(data[1])
+    const [thirdDay, setThirdDay] = useState(data[2])
     const [currentDay, setCurrentDay] = useState(firstDay)
  
     return (
@@ -62,14 +62,14 @@ export default function App () {
                 </NavBar>
                 <Main>
                     <Box>
-                        <LeftBox />
-                        <RightBox />
+                        <LeftBox currentData={currentDay}/>
+                        <RightBox currentData={currentDay}/>
                     </Box>
-                    <MoreDetailsBox />
+                    <MoreDetailsBox currentData={currentDay}/>
                     <Box>    
-                        <ForecastBox />
-                        <ForecastBox /> 
-                        <ForecastBox />              
+                        <ForecastBox forecastData={firstDay} setCurrentDay={setCurrentDay}/>
+                        <ForecastBox forecastData={secondDay} setCurrentDay={setCurrentDay}/> 
+                        <ForecastBox forecastData={thirdDay} setCurrentDay={setCurrentDay}/>              
                     </Box>
                 </Main>
                 <Footer/>
@@ -95,12 +95,11 @@ function Logo () {
     )
 }
 
-function Search ({}) {
+function Search () {
     return (
         <form >
             <input className='search' type='text' placeholder='Enter city name...'  ></input>
-        </form>
-        
+        </form>    
     )
 }
 
@@ -121,22 +120,22 @@ function Box ({children}) {
     )
 }
 
-function LeftBox ({}) {
+function LeftBox ({currentData}) {
     return (
         <div className='left-box'>
-            <p className='text-today'></p>
-            <p className='text-current-date'></p>
-            <p className='text-location'></p>
+            <p className='text-today'>{new Date(currentData.date).toLocaleDateString('en-EN', { weekday: 'long' })}</p>
+            <p className='text-current-date'>{currentData.date}</p>
+            <p className='text-location'>{currentData.location}</p>
         </div>
     )
 }
 
-function RightBox () {
+function RightBox ({currentData}) {
     return (
         <div className='right-box'>
-            <img className='weather-icon-big' src={icon}></img>
-            <p className='text-temperature'></p>
-            <p className='text-condition'></p>
+            <img className='weather-icon-big' src={currentData.icon}></img>
+            <p className='text-temperature'>{new Intl.NumberFormat('en-US', {style: 'unit', unit: 'celsius'}).format(currentData.curr_temp)}</p>
+            <p className='text-condition'>{currentData.condition}</p>
         </div>
     )
 }
@@ -150,7 +149,7 @@ function Footer () {
 }
 
 
-function MoreDetailsBox () {
+function MoreDetailsBox ({currentData}) {
     
     const [isOpen, setIsOpen] = useState(false)
 
@@ -161,23 +160,23 @@ function MoreDetailsBox () {
                     <div className='more-details'>
                         <div className='details-feature-box'>
                             <p className='text-details'>Min temp:</p>
-                            <p className='text-details'>{new Intl.NumberFormat('en-US', {style: 'unit', unit:'celsius'}).format()}</p>
+                            <p className='text-details'>{new Intl.NumberFormat('en-US', {style: 'unit', unit:'celsius'}).format(currentData.min)}</p>
                         </div>
                         <div className='details-feature-box'>
                             <p className='text-details'>Max temp:</p>
-                            <p className='text-details'>{new Intl.NumberFormat('en-US', {style: 'unit', unit:'celsius'}).format()}</p>
+                            <p className='text-details'>{new Intl.NumberFormat('en-US', {style: 'unit', unit:'celsius'}).format(currentData.max)}</p>
                         </div>
                         <div className='details-feature-box'>
                             <p className='text-details'>Humidity:</p>
-                            <p className='text-details'>{new Intl.NumberFormat('en-US', {style: 'unit', unit:'percent'}).format()}</p>
+                            <p className='text-details'>{new Intl.NumberFormat('en-US', {style: 'unit', unit:'percent'}).format(currentData.humidity)}</p>
                         </div>
                         <div className='details-feature-box'>
                             <p className='text-details'>Precipitation:</p>
-                            <p className='text-details'>{new Intl.NumberFormat('en-US', {style: 'unit', unit:'celsius'}).format()}</p>
+                            <p className='text-details'>{new Intl.NumberFormat('en-US', {style: 'unit', unit:'percent'}).format(currentData.precipitation)}</p>
                         </div>
                         <div className='details-feature-box'>
                             <p className='text-details'>Wind:</p>
-                            <p className='text-details'>{new Intl.NumberFormat('en-US', {style: 'unit', unit:'kilometer-per-hour'}).format()}</p>
+                            <p className='text-details'>{new Intl.NumberFormat('en-US', {style: 'unit', unit:'kilometer-per-hour'}).format(currentData.wind)}</p>
                         </div>
                     </div>
                 )}
@@ -187,10 +186,10 @@ function MoreDetailsBox () {
 
 function ForecastBox ({forecastData, setCurrentDay}) {
     return (
-        <div className='forecast-box'  onClick={()=>setCurrentDay(forecastData)}>
-            <img className='icon' src='icon.jpg'></img>
-            <p className='text-location'>{new Date().toLocaleDateString('en-EN', { weekday: 'short' })}</p>
-            <p className='text-current-date'>{new Intl.NumberFormat('en-US', {style: 'unit', unit:'celsius'}).format()}</p>     
+        <div className='forecast-box' onClick={()=>setCurrentDay(forecastData)}>
+            <img className='icon' src={icon}></img>
+            <p className='text-location'>{new Date(forecastData.date).toLocaleDateString('en-EN', { weekday: 'short' })}</p>
+            <p className='text-current-date'>{new Intl.NumberFormat('en-US', {style: 'unit', unit:'celsius'}).format(forecastData.curr_temp)}</p>     
         </div>
     )
 }
