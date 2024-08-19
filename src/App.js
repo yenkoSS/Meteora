@@ -32,7 +32,7 @@ export default function App() {
       async function fetchData() {
         console.log(query);
         const res = await fetch(
-          `http://api.weatherapi.com/v1/forecast.json?key=38c3d0784865490ba4d140655241101&q=${query}&days=3&aqi=no&alerts=no`
+          `https://api.weatherapi.com/v1/forecast.json?key=38c3d0784865490ba4d140655241101&q=${query}&days=3&aqi=no&alerts=no`
         );
         const data = await res.json();
         const firstDayData = {
