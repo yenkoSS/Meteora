@@ -9,6 +9,7 @@ export default function App() {
   const [thirdDay, setThirdDay] = useState({});
   const [currentDay, setCurrentDay] = useState({});
   const [query, setQuery] = useState("Romania");
+  const [isLoading, setIsLoading] = useState(false);
 
   function setStates(firstDayData, secondDayData, thirdDayData) {
     setFirstDay(firstDayData);
@@ -30,7 +31,7 @@ export default function App() {
   useEffect(
     function () {
       async function fetchData() {
-        console.log(query);
+        setIsLoading(true);
         const res = await fetch(
           `https://api.weatherapi.com/v1/forecast.json?key=38c3d0784865490ba4d140655241101&q=${query}&days=3&aqi=no&alerts=no`
         );
@@ -76,6 +77,7 @@ export default function App() {
         };
 
         setStates(firstDayData, secondDayData, thirdDayData);
+        setIsLoading(false);
       }
 
       fetchData();
@@ -94,28 +96,34 @@ export default function App() {
             handleSubmit={handleSubmit}
           />
         </NavBar>
-        <Main>
-          <Box>
-            <LeftBox currentData={currentDay} />
-            <RightBox currentData={currentDay} />
-          </Box>
-          <MoreDetailsBox currentData={currentDay} />
-          <Box>
-            <ForecastBox
-              forecastData={firstDay}
-              setCurrentDay={setCurrentDay}
-            />
-            <ForecastBox
-              forecastData={secondDay}
-              setCurrentDay={setCurrentDay}
-            />
-            <ForecastBox
-              forecastData={thirdDay}
-              setCurrentDay={setCurrentDay}
-            />
-          </Box>
-        </Main>
-        <Footer />
+        {isLoading === true ? (
+          <Loading />
+        ) : (
+          <>
+            <Main>
+              <Box>
+                <LeftBox currentData={currentDay} />
+                <RightBox currentData={currentDay} />
+              </Box>
+              <MoreDetailsBox currentData={currentDay} />
+              <Box>
+                <ForecastBox
+                  forecastData={firstDay}
+                  setCurrentDay={setCurrentDay}
+                />
+                <ForecastBox
+                  forecastData={secondDay}
+                  setCurrentDay={setCurrentDay}
+                />
+                <ForecastBox
+                  forecastData={thirdDay}
+                  setCurrentDay={setCurrentDay}
+                />
+              </Box>
+            </Main>
+            <Footer />
+          </>
+        )}
       </div>
     </div>
   );
@@ -154,6 +162,15 @@ function Main({ children }) {
 
 function Box({ children }) {
   return <div className="box">{children}</div>;
+}
+
+function Loading() {
+  return (
+    <div className="loading-box">
+      <div className="loader"></div>
+      <p className="loader-text">LOADING</p>
+    </div>
+  );
 }
 
 function LeftBox({ currentData }) {
