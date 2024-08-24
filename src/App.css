@@ -21,6 +21,7 @@ html {
 .app {
   border-radius: 10px;
   width: 800px;
+  height: 800px;
   background-color: #242830;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
@@ -65,6 +66,13 @@ html {
 .text-location {
   letter-spacing: 1px;
   font-size: 20px;
+  color: white;
+}
+
+.loading-msg {
+  padding: 100px;
+  font-size: 60px;
+  letter-spacing: 2px;
   color: white;
 }
 
@@ -203,4 +211,53 @@ footer {
   font-size: 14px;
   letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.247);
+}
+
+/* HTML: <div class="loader"></div> */
+
+.loading-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.loader-text {
+  font-size: 40px;
+  color: greenyellow;
+  margin-top: 10px;
+}
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 108px;
+  height: 60px;
+  color: #ffffff;
+  --c: radial-gradient(farthest-side, currentColor 96%, #0000);
+  background: var(--c) 100% 100% /30% 60%, var(--c) 70% 0 /50% 100%,
+    var(--c) 0 100% /36% 68%, var(--c) 27% 18% /26% 40%,
+    linear-gradient(currentColor 0 0) bottom/67% 58%;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.loader:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  opacity: 0.4;
+  animation: l7 1s infinite;
+}
+@keyframes l7 {
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.loader span {
+  display: inline-block;
+  margin-right: 20px;
 }
