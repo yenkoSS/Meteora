@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Meteora/static/css/main.553d95aa.css",
-    "main.js": "/Meteora/static/js/main.1a8b4138.js",
+    "main.css": "/Meteora/static/css/main.ab919433.css",
+    "main.js": "/Meteora/static/js/main.45caa72e.js",
     "index.html": "/Meteora/index.html",
-    "main.553d95aa.css.map": "/Meteora/static/css/main.553d95aa.css.map",
-    "main.1a8b4138.js.map": "/Meteora/static/js/main.1a8b4138.js.map"
+    "main.ab919433.css.map": "/Meteora/static/css/main.ab919433.css.map",
+    "main.45caa72e.js.map": "/Meteora/static/js/main.45caa72e.js.map"
   },
   "entrypoints": [
-    "static/css/main.553d95aa.css",
-    "static/js/main.1a8b4138.js"
+    "static/css/main.ab919433.css",
+    "static/js/main.45caa72e.js"
   ]
 }
